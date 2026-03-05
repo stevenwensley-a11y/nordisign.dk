@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="view-transition" content="same-origin">
     <title>NORDI'SIGN — Visual Storytelling & Korte Sanselige Videoer</title>
     <meta name="description" content="Sophia Obel skaber korte, sanselige brandfilm for healere og selvudviklingsfolk, der vil kommunikere med dybde frem for hastighed.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -790,6 +791,41 @@
             .portfolio-masonry { column-count: 1; }
             .hero-buttons { flex-direction: column; align-items: center; }
         }
+
+        /* FE3: CSS @property gradient animation — warm gold palette */
+        @property --grad-angle {
+          syntax: '<angle>';
+          initial-value: 135deg;
+          inherits: false;
+        }
+
+        @keyframes gradient-shift {
+          0%   { --grad-angle: 135deg; }
+          50%  { --grad-angle: 225deg; }
+          100% { --grad-angle: 135deg; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+          .btn-primary.gradient-animated {
+            animation: gradient-shift 6s ease-in-out infinite;
+            background: linear-gradient(var(--grad-angle), #1A1A1A, #3A2E22, #1A1A1A);
+            background-size: 200% 200%;
+          }
+          .btn-secondary.gradient-animated {
+            animation: gradient-shift 6s ease-in-out infinite;
+            border-image: linear-gradient(var(--grad-angle), var(--accent), #1A1A1A, var(--accent)) 1;
+          }
+        }
+
+        /* FE6: View Transitions API */
+        @view-transition {
+          navigation: auto;
+        }
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation-duration: 0.3s;
+          animation-timing-function: ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -819,8 +855,8 @@
             <h1>Stories on<br>Purpose</h1>
             <p class="hero-subtitle">Når dit budskab skal mærkes, ikke bare ses.<br><span class="script-text" style="font-size: 22px; color: var(--accent);">Korte, cinematiske brandfilm for formålsdrevne brands.</span></p>
             <div class="hero-buttons">
-                <a href="#portfolio" class="btn-primary">Se film</a>
-                <a href="#contact" class="btn-secondary">Book en samtale</a>
+                <a href="#portfolio" class="btn-primary gradient-animated">Se film</a>
+                <a href="#contact" class="btn-secondary gradient-animated">Book en samtale</a>
             </div>
         </div>
         <div class="scroll-indicator">
