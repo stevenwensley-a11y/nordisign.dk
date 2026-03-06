@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="view-transition" content="same-origin">
     <title>NORDI'SIGN — Visual Storytelling & Korte Sanselige Videoer</title>
     <meta name="description" content="Sophia Obel skaber korte, sanselige brandfilm for healere og selvudviklingsfolk, der vil kommunikere med dybde frem for hastighed.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,10 +145,10 @@
             margin-bottom: 28px;
         }
         .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(4.5rem, 10vw, 8rem);
-            font-weight: 700;
-            line-height: 1.0;
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 300;
+            line-height: 1.15;
             color: var(--text-dark);
             margin-bottom: 32px;
         }
@@ -237,11 +236,11 @@
             margin-bottom: 20px;
         }
         .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 700;
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            font-weight: 300;
             color: var(--text-dark);
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 24px;
         }
         .section-text {
@@ -791,56 +790,20 @@
             .portfolio-masonry { column-count: 1; }
             .hero-buttons { flex-direction: column; align-items: center; }
         }
-
-        /* FE3: CSS @property gradient animation — warm gold palette */
-        @property --grad-angle {
-          syntax: '<angle>';
-          initial-value: 135deg;
-          inherits: false;
-        }
-
-        @keyframes gradient-shift {
-          0%   { --grad-angle: 135deg; }
-          50%  { --grad-angle: 225deg; }
-          100% { --grad-angle: 135deg; }
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-          .btn-primary.gradient-animated {
-            animation: gradient-shift 6s ease-in-out infinite;
-            background: linear-gradient(var(--grad-angle), #1A1A1A, #3A2E22, #1A1A1A);
-            background-size: 200% 200%;
-          }
-          .btn-secondary.gradient-animated {
-            animation: gradient-shift 6s ease-in-out infinite;
-            border-image: linear-gradient(var(--grad-angle), var(--accent), #1A1A1A, var(--accent)) 1;
-          }
-        }
-
-        /* FE6: View Transitions API */
-        @view-transition {
-          navigation: auto;
-        }
-        ::view-transition-old(root),
-        ::view-transition-new(root) {
-          animation-duration: 0.3s;
-          animation-timing-function: ease-in-out;
-        }
     </style>
 </head>
 <body>
 
     <!-- NAV -->
     <nav id="mainNav">
-        <img src="NORDISIGN-black.png" alt="NORDI'SIGN" class="nav-logo">
+        <a href="index.html"><img src="NORDISIGN-black.png" alt="NORDI'SIGN" class="nav-logo"></a>
         <div class="nav-links" id="navLinks">
-            <a href="#about">Om mig</a>
-            <a href="#stories">Tilgang</a>
-            <a href="#product">Ydelse</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#blog">Blog</a>
-            <a href="#process">Proces</a>
-            <a href="#contact" class="nav-cta">Kontakt</a>
+            <a href="om.html">Om</a>
+            <a href="produkt.html">Ydelse</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="proces.html">Proces</a>
+            <a href="kontakt.html" class="nav-cta">Kontakt</a>
         </div>
         <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('active')">
             <span></span><span></span><span></span>
@@ -855,8 +818,8 @@
             <h1>Stories on<br>Purpose</h1>
             <p class="hero-subtitle">Når dit budskab skal mærkes, ikke bare ses.<br><span class="script-text" style="font-size: 22px; color: var(--accent);">Korte, cinematiske brandfilm for formålsdrevne brands.</span></p>
             <div class="hero-buttons">
-                <a href="#portfolio" class="btn-primary gradient-animated">Se film</a>
-                <a href="#contact" class="btn-secondary gradient-animated">Book en samtale</a>
+                <a href="portfolio.html" class="btn-primary">Se film</a>
+                <a href="kontakt.html" class="btn-secondary">Book en samtale</a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -1159,11 +1122,11 @@
                 <p class="footer-text">Visual Storytelling · Graphics · Photos<br>CVR 27666345</p>
             </div>
             <div class="footer-links">
-                <a href="#about">Om</a>
-                <a href="#product">Ydelse</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#blog">Blog</a>
-                <a href="#contact">Kontakt</a>
+                <a href="om.html">Om</a>
+                <a href="produkt.html">Ydelse</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="blog.html">Blog</a>
+                <a href="kontakt.html">Kontakt</a>
             </div>
         </div>
         <div class="footer-bottom">

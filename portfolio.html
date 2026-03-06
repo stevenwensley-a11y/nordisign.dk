@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — NORDI'SIGN</title>
+    <meta name="description" content="Udvalgte cases og visuelle fortællinger af Sophia Obel. AI-film, brandfilm, bogdesign, illustrationer og PR-video.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Tangerine';
+            src: url('fonts/TangerineRegular.woff2') format('woff2'),
+                 url('fonts/TangerineRegular.woff') format('woff');
+            font-weight: 400; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'Tomato Pasta';
+            src: url('fonts/TomatoPasta.otf') format('opentype');
+            font-weight: 400; font-style: normal; font-display: swap;
+        }
+
+        :root {
+            --white: #FFFFFF; --off-white: #FAFAF8; --light-gray: #F2F0ED;
+            --mid-gray: #E8E5E0; --text-dark: #1A1A1A; --text-body: #3D3D3D;
+            --text-muted: #7A7672; --text-light: #A8A4A0; --accent: #B8A080;
+            --accent-soft: #C8B898; --accent-muted: rgba(184,160,128,0.15);
+            --font-display: 'Tangerine', cursive;
+            --font-serif: 'Crimson Pro', Georgia, serif;
+            --font-body: 'Montserrat', -apple-system, sans-serif;
+            --font-script: 'Tomato Pasta', cursive;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--font-body); background: var(--white);
+            color: var(--text-body); line-height: 1.7; -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        nav.scrolled { padding: 12px 40px; background: rgba(255,255,255,0.96); }
+        .nav-logo { height: 38px; opacity: 0.45; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        nav.scrolled .nav-logo { height: 22px; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-family: var(--font-body);
+            font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--text-dark); }
+        .nav-links a.active { color: var(--text-dark); }
+        .nav-cta {
+            background: var(--text-dark) !important; color: var(--white) !important;
+            padding: 8px 24px !important; font-size: 10px !important;
+            letter-spacing: 2.5px; border: none !important;
+        }
+        .nav-cta:hover { opacity: 0.85 !important; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 24px; height: 1.5px; background: var(--text-dark); transition: 0.3s; }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 160px 40px 80px; text-align: center; background: var(--off-white);
+        }
+        .page-hero .section-label {
+            font-family: var(--font-body); font-size: 11px; font-weight: 500;
+            letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+        }
+        .page-hero h1 {
+            font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300; color: var(--text-dark); line-height: 1.2;
+        }
+        .page-hero p {
+            font-family: var(--font-serif); font-size: 17px; font-weight: 300;
+            color: var(--text-muted); line-height: 1.9; max-width: 600px; margin: 16px auto 0;
+        }
+
+        /* SECTIONS */
+        section { padding: 100px 40px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* PORTFOLIO */
+        .portfolio { background: var(--off-white); padding-top: 60px; }
+        .portfolio-filters {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; justify-content: center;
+        }
+        .filter-btn {
+            font-family: var(--font-body); font-size: 10px; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase; padding: 10px 24px;
+            border: 1px solid var(--mid-gray); background: transparent;
+            color: var(--text-muted); cursor: pointer; transition: all 0.3s;
+        }
+        .filter-btn:hover { border-color: var(--text-dark); color: var(--text-dark); }
+        .filter-btn.active { background: var(--text-dark); color: var(--white); border-color: var(--text-dark); }
+
+        .portfolio-masonry { column-count: 3; column-gap: 16px; }
+        .portfolio-item {
+            break-inside: avoid; margin-bottom: 16px; position: relative;
+            overflow: hidden; cursor: pointer; background: var(--light-gray);
+        }
+        .portfolio-item.hidden { display: none; }
+        .portfolio-item::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 50%);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .portfolio-item:hover::after { opacity: 1; }
+        .portfolio-item img {
+            width: 100%; display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .portfolio-item:hover img { transform: scale(1.04); }
+        .play-icon {
+            width: 48px; height: 48px; border: 2px solid rgba(255,255,255,0.7);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            z-index: 2; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); transition: all 0.3s; opacity: 0;
+        }
+        .portfolio-item:hover .play-icon { opacity: 1; border-color: #fff; }
+        .play-icon::after {
+            content: ''; width: 0; height: 0;
+            border-left: 14px solid #fff; border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent; margin-left: 4px;
+        }
+        .portfolio-label {
+            position: absolute; bottom: 16px; left: 16px; z-index: 3;
+            opacity: 0; transform: translateY(10px); transition: all 0.3s;
+        }
+        .portfolio-item:hover .portfolio-label { opacity: 1; transform: translateY(0); }
+        .portfolio-label h5 { font-family: var(--font-serif); font-size: 1.1rem; color: #fff; font-weight: 400; }
+        .portfolio-label span {
+            font-family: var(--font-body); font-size: 10px; color: rgba(255,255,255,0.7);
+            letter-spacing: 1.5px; text-transform: uppercase;
+        }
+        .portfolio-item.tall img { aspect-ratio: 3/4; object-fit: cover; }
+        .portfolio-item.wide img { aspect-ratio: 16/9; object-fit: cover; }
+        .portfolio-item.square img { aspect-ratio: 1/1; object-fit: cover; }
+
+        /* FOOTER */
+        footer { padding: 60px 40px 40px; background: var(--text-dark); color: rgba(255,255,255,0.6); }
+        .footer-content {
+            max-width: 1100px; margin: 0 auto; display: flex;
+            justify-content: space-between; align-items: flex-start;
+        }
+        .footer-logo { height: 20px; filter: brightness(0) invert(1); opacity: 0.4; margin-bottom: 12px; }
+        .footer-text { font-family: var(--font-body); font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+        .footer-links { display: flex; gap: 40px; }
+        .footer-links a {
+            font-family: var(--font-body); font-size: 11px; letter-spacing: 1px;
+            color: rgba(255,255,255,0.5); text-decoration: none; text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom {
+            max-width: 1100px; margin: 40px auto 0; padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1); display: flex;
+            justify-content: space-between; font-family: var(--font-body);
+            font-size: 11px; color: rgba(255,255,255,0.35);
+        }
+        .badge a { color: rgba(255,255,255,0.35); text-decoration: none; }
+        .badge a:hover { color: rgba(255,255,255,0.6); }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 1024px) { .portfolio-masonry { column-count: 2; } }
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            nav.scrolled { padding: 10px 24px; }
+            .nav-logo { height: 30px; }
+            nav.scrolled .nav-logo { height: 18px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-links.active {
+                display: flex; flex-direction: column; position: absolute;
+                top: 60px; left: 0; right: 0; background: rgba(255,255,255,0.98);
+                padding: 24px; gap: 20px; border-bottom: 1px solid var(--mid-gray);
+            }
+            section { padding: 80px 24px; }
+            .page-hero { padding: 120px 24px 60px; }
+            .portfolio { padding-top: 40px; }
+            .portfolio-masonry { column-count: 2; }
+            .portfolio-filters { justify-content: center; }
+            .footer-content { flex-direction: column; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 8px; }
+        }
+        @media (max-width: 480px) { .portfolio-masonry { column-count: 1; } }
+    </style>
+</head>
+<body>
+
+    <nav id="mainNav">
+        <a href="index.html"><img src="NORDISIGN-black.png" alt="NORDI'SIGN" class="nav-logo"></a>
+        <div class="nav-links" id="navLinks">
+            <a href="om.html">Om</a>
+            <a href="produkt.html">Ydelse</a>
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="proces.html">Proces</a>
+            <a href="kontakt.html" class="nav-cta">Kontakt</a>
+        </div>
+        <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <p class="section-label">Portfolio</p>
+        <h1>Udvalgte cases</h1>
+        <p>Visuelle fortællinger — fra grafisk design til AI-genererede brandfilm.</p>
+    </div>
+
+    <section class="portfolio">
+        <div class="container">
+            <div class="portfolio-filters fade-in">
+                <button class="filter-btn active" data-filter="all">Alle</button>
+                <button class="filter-btn" data-filter="grafisk-design">Grafisk design</button>
+                <button class="filter-btn" data-filter="bogdesign">Bogdesign</button>
+                <button class="filter-btn" data-filter="ai-illustrationer">AI illustrationer</button>
+                <button class="filter-btn" data-filter="ai-film">AI Film Making</button>
+                <button class="filter-btn" data-filter="ai-pr-video">AI PR video</button>
+                <button class="filter-btn" data-filter="pr-branding">Video for PR Branding</button>
+            </div>
+            <div class="portfolio-masonry fade-in">
+                <div class="portfolio-item tall" data-category="ai-film">
+                    <img src="thumbs/thumb-nordarv.jpg" alt="NORDARV brandfilm">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>NORDARV</h5><span>AI Film Making</span></div>
+                </div>
+                <div class="portfolio-item wide" data-category="ai-film">
+                    <img src="thumbs/thumb-rewire.jpg" alt="REWIRE AI film">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>REWIRE</h5><span>AI Film Making</span></div>
+                </div>
+                <div class="portfolio-item square" data-category="pr-branding">
+                    <img src="thumbs/thumb-vanlife.jpg" alt="VANLIFE Farewell">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>VANLIFE Farewell</h5><span>PR Branding</span></div>
+                </div>
+                <div class="portfolio-item tall" data-category="bogdesign">
+                    <img src="thumbs/thumb-skumfodt.jpg" alt="Skumfødt bog storytelling">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>Skumfødt #1</h5><span>Bogdesign</span></div>
+                </div>
+                <div class="portfolio-item wide" data-category="bogdesign">
+                    <img src="thumbs/thumb-ella.jpg" alt="Ella af Færøerne">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>Ella af Færøerne</h5><span>Bogdesign</span></div>
+                </div>
+                <div class="portfolio-item square" data-category="ai-illustrationer">
+                    <img src="thumbs/thumb-chakra.jpg" alt="Chakra Ladies">
+                    <div class="play-icon"></div>
+                    <div class="portfolio-label"><h5>Chakra Ladies</h5><span>AI Illustrationer</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <img src="NORDISIGN-white.png" alt="NORDI'SIGN" class="footer-logo">
+                <p class="footer-text">Visual Storytelling · Graphics · Photos<br>CVR 27666345</p>
+            </div>
+            <div class="footer-links">
+                <a href="om.html">Om</a>
+                <a href="produkt.html">Ydelse</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="blog.html">Blog</a>
+                <a href="kontakt.html">Kontakt</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 NORDI'SIGN — Sophia Obel</span>
+            <span class="badge">Bygget med AI-Assistent — drevet af <a href="https://bygmedai.dk">BygMedAI</a></span>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 80); });
+
+        // Portfolio filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
