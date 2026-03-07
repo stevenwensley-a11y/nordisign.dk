@@ -709,7 +709,7 @@
             line-height: 1.8;
             letter-spacing: 0.5px;
         }
-        .footer-links { display: flex; gap: 40px; }
+        .footer-links { display: flex; gap: 40px; flex-wrap: wrap; }
         .footer-links a {
             font-family: var(--font-body);
             font-size: 11px;
@@ -782,6 +782,7 @@
             .why-grid { grid-template-columns: 1fr; }
             .blog-grid { column-count: 1; }
             .footer-content { flex-direction: column; gap: 32px; }
+            .footer-links { gap: 20px; }
             .footer-bottom { flex-direction: column; gap: 8px; }
             .parallax-break { background-attachment: scroll; }
         }
