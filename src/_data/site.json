@@ -1,0 +1,45 @@
+{
+  "name": "NORDI'SIGN",
+  "shortName": "NORDISIGN",
+  "domain": "nordisign.dk",
+  "url": "https://nordisign.dk",
+  "description": "Sophia Obel skaber korte, sanselige brandfilm for healere og selvudviklingsfolk, der vil kommunikere med dybde frem for hastighed.",
+  "email": "sophia@nordisign.dk",
+  "cvr": "27666345",
+  "logo": {
+    "type": "image",
+    "black": "/assets/images/NORDISIGN-black.png",
+    "white": "/assets/images/NORDISIGN-white.png",
+    "alt": "NORDI'SIGN"
+  },
+  "fonts": {
+    "display": "'Tangerine', cursive",
+    "serif": "'Crimson Pro', Georgia, serif",
+    "body": "'Montserrat', -apple-system, sans-serif",
+    "script": "'Tomato Pasta', cursive"
+  },
+  "skin": {
+    "file": "nordisign.css"
+  },
+  "nav": {
+    "links": [
+      { "url": "/om/", "label": "Om" },
+      { "url": "/produkt/", "label": "Ydelse" },
+      { "url": "/portfolio/", "label": "Portfolio" },
+      { "url": "/blog/", "label": "Blog" },
+      { "url": "/proces/", "label": "Proces" }
+    ],
+    "cta": { "url": "/kontakt/", "label": "Kontakt" }
+  },
+  "footer": {
+    "tagline": "Visual Storytelling · Graphics · Photos",
+    "credit": "Bygget med AI-Assistent — drevet af <a href=\"https://bygmedai.dk\">BygMedAI</a>",
+    "links": [
+      { "url": "/om/", "label": "Om" },
+      { "url": "/produkt/", "label": "Ydelse" },
+      { "url": "/portfolio/", "label": "Portfolio" },
+      { "url": "/blog/", "label": "Blog" },
+      { "url": "/kontakt/", "label": "Kontakt" }
+    ]
+  }
+}

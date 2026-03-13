@@ -1,0 +1,79 @@
+---
+layout: base.njk
+title: "Kontakt — NORDI'SIGN"
+description: "Kontakt Sophia Obel for en samtale om din brandfilm. Visual storytelling med dybde og intention."
+extraHead: |
+  <style>
+    .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-serif); font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300; color: var(--text-dark); line-height: 1.2; margin-bottom: 24px;
+    }
+    .contact-hero {
+      min-height: 80vh;
+      padding: 180px 40px 100px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      background: var(--off-white);
+    }
+    .contact-content { max-width: 700px; }
+    .contact-content p {
+      font-family: var(--font-serif); font-size: 18px; font-style: italic;
+      color: var(--text-muted); margin-bottom: 48px; font-weight: 300; line-height: 1.9;
+    }
+    .btn-primary {
+      display: inline-block; background: var(--text-dark); color: var(--white);
+      padding: 16px 48px; font-family: var(--font-body); font-size: 12px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .contact-details { padding: 80px 40px; background: var(--white); }
+    .contact-grid {
+      max-width: 800px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    }
+    .contact-block h4 {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .contact-block p {
+      font-family: var(--font-serif); font-size: 16px; color: var(--text-body); line-height: 1.9;
+    }
+    .contact-block a {
+      color: var(--text-dark); text-decoration: none;
+      border-bottom: 1px solid var(--mid-gray); transition: border-color 0.3s;
+    }
+    .contact-block a:hover { border-color: var(--accent); }
+    @media (max-width: 768px) {
+      .contact-hero { padding: 140px 24px 80px; min-height: 60vh; }
+      .contact-details { padding: 60px 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+---
+
+<div class="contact-hero">
+  <div class="contact-content fade-in">
+    <p class="section-label">Lad os tale</p>
+    <h1 class="section-title">Klar til at skabe en fort&aelig;lling, der varer?</h1>
+    <p>Hvis du vil kommunikere med intention &mdash; lad os skabe noget, der m&aelig;rkes.</p>
+    <a href="mailto:sophia@nordisign.dk" class="btn-primary">Skriv til mig</a>
+  </div>
+</div>
+
+<div class="contact-details">
+  <div class="contact-grid fade-in">
+    <div class="contact-block">
+      <h4>Email</h4>
+      <p><a href="mailto:sophia@nordisign.dk">sophia@nordisign.dk</a></p>
+    </div>
+    <div class="contact-block">
+      <h4>Virksomhed</h4>
+      <p>NORDI'SIGN<br>CVR 27666345</p>
+    </div>
+  </div>
+</div>

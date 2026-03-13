@@ -1,0 +1,592 @@
+---
+layout: base.njk
+title: "NORDI'SIGN — Visual Storytelling & Korte Sanselige Videoer"
+description: "Sophia Obel skaber korte, sanselige brandfilm for healere og selvudviklingsfolk, der vil kommunikere med dybde frem for hastighed."
+jsonLd: |
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "NORDI'SIGN",
+    "url": "https://nordisign.dk",
+    "description": "Visual Storytelling — korte, sanselige brandfilm for formålsdrevne brands.",
+    "founder": { "@type": "Person", "name": "Sophia Obel" },
+    "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+    "email": "sophia@nordisign.dk"
+  }
+extraHead: |
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      background: var(--off-white);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('/assets/images/bg-gold-texture.png');
+      background-size: cover; background-position: center;
+      opacity: 0.06;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 850px; padding: 0 40px; }
+    .hero-tagline {
+      font-family: var(--font-body); font-size: 11px;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300; line-height: 1.15;
+      color: var(--text-dark); margin-bottom: 32px;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-subtitle {
+      font-family: var(--font-serif); font-size: 18px;
+      font-weight: 300; font-style: italic;
+      color: var(--text-muted); max-width: 500px;
+      margin: 0 auto 48px; line-height: 1.9;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--text-dark); color: var(--white);
+      padding: 14px 40px; font-family: var(--font-body);
+      font-size: 11px; font-weight: 500; letter-spacing: 2.5px;
+      text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--text-dark);
+      padding: 14px 40px; font-family: var(--font-body);
+      font-size: 11px; font-weight: 400; letter-spacing: 2.5px;
+      text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--mid-gray); transition: all 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--text-dark); }
+    .script-text { font-family: var(--font-script); font-weight: 400; }
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%); display: flex;
+      flex-direction: column; align-items: center; gap: 8px;
+      color: var(--text-light); font-family: var(--font-body);
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      animation: float 3s ease-in-out infinite;
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 120px 40px; }
+    .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300; color: var(--text-dark);
+      line-height: 1.2; margin-bottom: 24px;
+    }
+    .section-text {
+      font-family: var(--font-serif); font-size: 17px; font-weight: 300;
+      color: var(--text-muted); line-height: 1.9; max-width: 640px;
+    }
+
+    /* ===== STATEMENT ===== */
+    .statement-section { padding: 100px 40px; text-align: center; background: var(--white); }
+    .statement-text {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4.5vw, 3.8rem);
+      font-weight: 300; line-height: 1.4;
+      color: var(--text-dark); max-width: 900px; margin: 0 auto;
+    }
+    .statement-text em { font-style: italic; color: var(--accent); }
+
+    /* ===== PARALLAX ===== */
+    .parallax-break {
+      height: 60vh; min-height: 450px;
+      background-attachment: fixed; background-size: cover; background-position: center;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .parallax-break::after {
+      content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35);
+    }
+    .parallax-quote {
+      position: relative; z-index: 2; text-align: center; padding: 0 40px; max-width: 800px;
+    }
+    .parallax-quote blockquote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300; font-style: italic;
+      color: #fff; line-height: 1.6; margin-bottom: 16px;
+    }
+    .parallax-quote cite {
+      font-family: var(--font-body); font-size: 11px;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); font-style: normal;
+    }
+    .parallax-1 { background-image: url('/assets/images/bg-gold-texture.png'); }
+    .parallax-2 { background-image: url('/assets/images/bg-gold-2.jpg'); }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-image { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .about-image::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,0,0,0.06); pointer-events: none; }
+    .about-stats { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--mid-gray); }
+    .stat-number { font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .stat-label { font-family: var(--font-body); font-size: 11px; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ===== STORIES ===== */
+    .stories { background: var(--off-white); }
+    .stories-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .stories-quote {
+      font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;
+      font-style: italic; color: var(--text-dark); line-height: 1.6;
+      margin-top: 40px; padding-left: 24px; border-left: 2px solid var(--accent);
+    }
+
+    /* ===== PRODUCT ===== */
+    .product { background: var(--white); }
+    .product-card {
+      background: var(--off-white); border: 1px solid var(--mid-gray);
+      padding: 60px; max-width: 800px; margin: 60px auto 0;
+    }
+    .product-card h3 { font-family: var(--font-serif); font-size: 2rem; font-weight: 400; color: var(--text-dark); margin-bottom: 8px; }
+    .product-subtitle { font-family: var(--font-body); font-size: 11px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; }
+    .product-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .product-col h4 { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 16px; }
+    .product-col ul { list-style: none; padding: 0; }
+    .product-col li { font-family: var(--font-serif); font-size: 15px; color: var(--text-body); padding: 6px 0; padding-left: 16px; position: relative; }
+    .product-col li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent); }
+    .product-price { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; color: var(--text-dark); padding-top: 32px; border-top: 1px solid var(--mid-gray); }
+    .product-price span { font-size: 14px; font-family: var(--font-body); color: var(--text-muted); }
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio { background: var(--off-white); }
+    .portfolio-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; margin-bottom: 48px; }
+    .filter-btn {
+      font-family: var(--font-body); font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 10px 24px; border: 1px solid var(--mid-gray);
+      background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.3s;
+    }
+    .filter-btn:hover { border-color: var(--text-dark); color: var(--text-dark); }
+    .filter-btn.active { background: var(--text-dark); color: var(--white); border-color: var(--text-dark); }
+    .portfolio-masonry { column-count: 3; column-gap: 16px; }
+    .portfolio-item { break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden; cursor: pointer; background: var(--light-gray); }
+    .portfolio-item.hidden { display: none; }
+    .portfolio-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 50%); opacity: 0; transition: opacity 0.3s; }
+    .portfolio-item:hover::after { opacity: 1; }
+    .portfolio-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .portfolio-item:hover img { transform: scale(1.04); }
+    .play-icon {
+      width: 48px; height: 48px; border: 2px solid rgba(255,255,255,0.7);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      z-index: 2; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); transition: all 0.3s; opacity: 0;
+    }
+    .portfolio-item:hover .play-icon { opacity: 1; border-color: #fff; }
+    .play-icon::after { content: ''; width: 0; height: 0; border-left: 14px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 4px; }
+    .portfolio-label { position: absolute; bottom: 16px; left: 16px; z-index: 3; opacity: 0; transform: translateY(10px); transition: all 0.3s; }
+    .portfolio-item:hover .portfolio-label { opacity: 1; transform: translateY(0); }
+    .portfolio-label h5 { font-family: var(--font-serif); font-size: 1.1rem; color: #fff; font-weight: 400; }
+    .portfolio-label span { font-family: var(--font-body); font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 1.5px; text-transform: uppercase; }
+    .portfolio-item.tall img { aspect-ratio: 3/4; object-fit: cover; }
+    .portfolio-item.wide img { aspect-ratio: 16/9; object-fit: cover; }
+    .portfolio-item.square img { aspect-ratio: 1/1; object-fit: cover; }
+
+    /* ===== BLOG ===== */
+    .blog { background: var(--white); }
+    .blog-grid { column-count: 3; column-gap: 16px; margin-top: 60px; }
+    .blog-card-placeholder { break-inside: avoid; margin-bottom: 16px; background: var(--light-gray); padding: 32px 24px; position: relative; }
+    .blog-card-placeholder.tall { min-height: 380px; }
+    .blog-card-placeholder.medium { min-height: 280px; }
+    .blog-card-placeholder.short { min-height: 200px; }
+    .blog-card-placeholder h5 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dark); margin-bottom: 8px; font-weight: 400; }
+    .blog-card-placeholder span { font-family: var(--font-body); font-size: 12px; color: var(--text-muted); }
+    .blog-card-placeholder .blog-tag {
+      position: absolute; top: 16px; right: 16px;
+      font-family: var(--font-body); font-size: 9px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--accent);
+    }
+
+    /* ===== PROCESS ===== */
+    .process { background: var(--off-white); }
+    .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 60px; }
+    .step { padding: 32px 20px; border-top: 2px solid var(--mid-gray); transition: border-color 0.3s; }
+    .step:hover { border-color: var(--accent); }
+    .step-number { font-family: var(--font-display); font-size: 3.5rem; color: var(--accent); margin-bottom: 16px; font-weight: 700; line-height: 1; }
+    .step h4 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 400; color: var(--text-dark); margin-bottom: 10px; }
+    .step p { font-family: var(--font-serif); font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ===== WHY ===== */
+    .why { background: var(--white); }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 60px; }
+    .why-card { padding: 32px 24px; border: 1px solid var(--mid-gray); transition: border-color 0.3s; }
+    .why-card:hover { border-color: var(--accent); }
+    .why-icon { font-size: 28px; margin-bottom: 20px; color: var(--accent); }
+    .why-card h4 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-dark); margin-bottom: 12px; font-weight: 400; }
+    .why-card p { font-family: var(--font-serif); font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ===== CTA ===== */
+    .cta-section { padding: 140px 40px; text-align: center; background: var(--off-white); position: relative; }
+    .cta-section .section-title { max-width: 700px; margin: 0 auto 16px; }
+    .cta-section p { font-family: var(--font-serif); font-size: 18px; font-style: italic; color: var(--text-muted); margin-bottom: 48px; font-weight: 300; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .process-steps { grid-template-columns: repeat(3, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { column-count: 2; }
+      .portfolio-masonry { column-count: 2; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 80px 24px; }
+      .statement-section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image { max-height: 500px; }
+      .stories-content { grid-template-columns: 1fr; gap: 40px; }
+      .product-card { padding: 36px 24px; }
+      .product-columns { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .portfolio-masonry { column-count: 2; }
+      .portfolio-filters { justify-content: center; }
+      .why-grid { grid-template-columns: 1fr; }
+      .blog-grid { column-count: 1; }
+      .parallax-break { background-attachment: scroll; }
+    }
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+      .portfolio-masonry { column-count: 1; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+extraScripts: |
+  <script>
+    // Portfolio filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        portfolioItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+---
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content fade-in">
+    <p class="hero-tagline">Visual Storytelling &middot; Graphics &middot; Photos</p>
+    <h1>Stories on<br>Purpose</h1>
+    <p class="hero-subtitle">N&aring;r dit budskab skal m&aelig;rkes, ikke bare ses.<br><span class="script-text" style="font-size: 22px; color: var(--accent);">Korte, cinematiske brandfilm for form&aring;lsdrevne brands.</span></p>
+    <div class="hero-buttons">
+      <a href="/portfolio/" class="btn-primary">Se film</a>
+      <a href="/kontakt/" class="btn-secondary">Book en samtale</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATEMENT 1 -->
+<div class="statement-section fade-in">
+  <p class="statement-text">Jeg skaber ikke bare videoer. Jeg skaber <em>visuelle fort&aelig;llinger</em> med dybde, strategi og sanselighed.</p>
+</div>
+
+<!-- OM MIG -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image fade-in">
+        <img src="/assets/images/sophia-portrait.png" alt="Sophia Obel">
+      </div>
+      <div class="fade-in">
+        <p class="section-label">Om mig</p>
+        <h2 class="section-title">Sophia Obel</h2>
+        <p class="section-text">Jeg har arbejdet som selvst&aelig;ndig grafisk designer i mere end 25 &aring;r &mdash; prim&aelig;rt med kulturinstitutioner og livsstilsvirksomheder.</p>
+        <br>
+        <p class="section-text">Mit fundament er klassisk grafisk design: visuelle identiteter, sammenh&aelig;ngende designlinjer, &aelig;stetisk pr&aelig;cision og strategisk forankring.</p>
+        <br>
+        <p class="section-text">Hvor jeg f&oslash;r skabte visuelle identiteter, skaber jeg i dag <strong style="color:var(--text-dark);">visuelle fort&aelig;llinger</strong>. Jeg &oslash;nsker at v&aelig;re kendt som visual storyteller &mdash; en, der ikke kun designer udtryk, men formidler transformation.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-number">25+</div>
+            <div class="stat-label">&Aring;rs erfaring</div>
+          </div>
+          <div>
+            <div class="stat-number">&infin;</div>
+            <div class="stat-label">Visuelle verdener</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARALLAX 1 -->
+<div class="parallax-break parallax-1">
+  <div class="parallax-quote">
+    <blockquote>&ldquo;Design er ikke kun det, man ser. Det er det, man m&aelig;rker.&rdquo;</blockquote>
+    <cite class="script-text" style="font-size: 16px; letter-spacing: 1px;">Sophia Obel</cite>
+  </div>
+</div>
+
+<!-- STORIES ON PURPOSE -->
+<section class="stories" id="stories">
+  <div class="container">
+    <div class="stories-content">
+      <div class="fade-in">
+        <p class="section-label">Min tilgang</p>
+        <h2 class="section-title">Stories on Purpose</h2>
+        <p class="section-text">Vi lever i en tid med konstant bev&aelig;gelse og st&oslash;j. Det meste indhold er skabt til at fange opm&aelig;rksomhed hurtigt.</p>
+        <br>
+        <p class="section-text">Jeg skaber film, der <em>holder</em> den.</p>
+        <br>
+        <p class="section-text">Stories on Purpose handler om bevidste fort&aelig;llinger. Fort&aelig;llinger med retning. Fort&aelig;llinger, der udspringer af en kerne og kommunikerer den transformation, et brand muligg&oslash;r.</p>
+      </div>
+      <div class="fade-in">
+        <p class="section-text" style="margin-top: 60px;">AI er ikke budskabet i mit arbejde. Det er et v&aelig;rkt&oslash;j, der giver mig mulighed for at opbygge visuelle universer, symbolik og stemninger med pr&aelig;cision og dybde.</p>
+        <blockquote class="stories-quote">&ldquo;Det er strategisk storytelling &mdash; med sanselighed.&rdquo;</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT 2 -->
+<div class="statement-section fade-in">
+  <p class="statement-text">Hvor andre skaber indhold, skaber jeg <em>tilstedev&aelig;relse</em>.</p>
+</div>
+
+<!-- PRODUKT -->
+<section class="product" id="product">
+  <div class="container">
+    <div style="text-align:center;" class="fade-in">
+      <p class="section-label">Ydelse</p>
+      <h2 class="section-title">The Strategic Story Spot</h2>
+      <p class="section-text" style="margin: 0 auto;">En 60 sekunders sanselig brandfilm &mdash; skabt til healere, coaches og form&aring;lsdrevne brands, der &oslash;nsker at kommunikere essens frem for st&oslash;j.</p>
+    </div>
+    <div class="product-card fade-in">
+      <h3>1-Minuts Brandfilm</h3>
+      <p class="product-subtitle">Cinematisk &middot; Sanselig &middot; Strategisk</p>
+      <div class="product-columns">
+        <div class="product-col">
+          <h4>Du leverer</h4>
+          <ul>
+            <li>Speak eller manuskript</li>
+            <li>En kort briefing om budskab og intention</li>
+          </ul>
+        </div>
+        <div class="product-col">
+          <h4>Jeg skaber</h4>
+          <ul>
+            <li>Et visuelt univers</li>
+            <li>AI-genererede billeder og animation</li>
+            <li>Klipning, rytme og filmisk komposition</li>
+            <li>En f&aelig;rdig film klar til web og sociale medier</li>
+          </ul>
+        </div>
+      </div>
+      <div class="product-price">
+        7.700 kr. <span>+ moms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARALLAX 2 -->
+<div class="parallax-break parallax-2">
+  <div class="parallax-quote">
+    <blockquote>&ldquo;Sanselighed er ikke pynt. Det er strategi.&rdquo;</blockquote>
+    <cite class="script-text" style="font-size: 16px; letter-spacing: 1px;">Sophia Obel</cite>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">Udvalgte cases</h2>
+    </div>
+    <div class="portfolio-filters fade-in">
+      <button class="filter-btn active" data-filter="all">Alle</button>
+      <button class="filter-btn" data-filter="grafisk-design">Grafisk design</button>
+      <button class="filter-btn" data-filter="bogdesign">Bogdesign</button>
+      <button class="filter-btn" data-filter="ai-illustrationer">AI illustrationer</button>
+      <button class="filter-btn" data-filter="ai-film">AI Film Making</button>
+      <button class="filter-btn" data-filter="ai-pr-video">AI PR video</button>
+      <button class="filter-btn" data-filter="pr-branding">Video for PR Branding</button>
+    </div>
+    <div class="portfolio-masonry fade-in">
+      <div class="portfolio-item tall" data-category="ai-film">
+        <img src="/assets/thumbs/thumb-nordarv.jpg" alt="NORDARV brandfilm">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>NORDARV</h5><span>AI Film Making</span></div>
+      </div>
+      <div class="portfolio-item wide" data-category="ai-film">
+        <img src="/assets/thumbs/thumb-rewire.jpg" alt="REWIRE AI film">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>REWIRE</h5><span>AI Film Making</span></div>
+      </div>
+      <div class="portfolio-item square" data-category="pr-branding">
+        <img src="/assets/thumbs/thumb-vanlife.jpg" alt="VANLIFE Farewell">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>VANLIFE Farewell</h5><span>PR Branding</span></div>
+      </div>
+      <div class="portfolio-item tall" data-category="bogdesign">
+        <img src="/assets/thumbs/thumb-skumfodt.jpg" alt="Skumf&oslash;dt bog storytelling">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>Skumf&oslash;dt #1</h5><span>Bogdesign</span></div>
+      </div>
+      <div class="portfolio-item wide" data-category="bogdesign">
+        <img src="/assets/thumbs/thumb-ella.jpg" alt="Ella af F&aelig;r&oslash;erne">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>Ella af F&aelig;r&oslash;erne</h5><span>Bogdesign</span></div>
+      </div>
+      <div class="portfolio-item square" data-category="ai-illustrationer">
+        <img src="/assets/thumbs/thumb-chakra.jpg" alt="Chakra Ladies">
+        <div class="play-icon"></div>
+        <div class="portfolio-label"><h5>Chakra Ladies</h5><span>AI Illustrationer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog" id="blog">
+  <div class="container">
+    <div class="fade-in">
+      <p class="section-label">Blog</p>
+      <h2 class="section-title">Visuelle tanker</h2>
+      <p class="section-text">Et visuelt tapet af tanker, processer og inspiration.</p>
+    </div>
+    <div class="blog-grid fade-in">
+      <div class="blog-card-placeholder tall">
+        <span class="blog-tag">Proces</span>
+        <h5>Hvordan AI forandrede min kreative proces</h5>
+        <span>Marts 2026</span>
+      </div>
+      <div class="blog-card-placeholder medium">
+        <span class="blog-tag">Storytelling</span>
+        <h5>Stories on Purpose &mdash; baggrunden</h5>
+        <span>Marts 2026</span>
+      </div>
+      <div class="blog-card-placeholder short">
+        <span class="blog-tag">Inspiration</span>
+        <h5>Cinematisk &aelig;stetik i brandfilm</h5>
+        <span>Marts 2026</span>
+      </div>
+      <div class="blog-card-placeholder medium">
+        <span class="blog-tag">Case</span>
+        <h5>NORDARV &mdash; fra id&eacute; til f&aelig;rdig film</h5>
+        <span>Marts 2026</span>
+      </div>
+      <div class="blog-card-placeholder tall">
+        <span class="blog-tag">Refleksion</span>
+        <h5>25 &aring;r som grafisk designer &mdash; hvad har &aelig;ndret sig?</h5>
+        <span>Marts 2026</span>
+      </div>
+      <div class="blog-card-placeholder short">
+        <span class="blog-tag">V&aelig;rkt&oslash;j</span>
+        <h5>Midjourney + Video: min workflow</h5>
+        <span>Marts 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCES -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; margin-bottom: 20px;">
+      <p class="section-label">Arbejdsproces</p>
+      <h2 class="section-title">Fra intention til f&aelig;rdig film</h2>
+    </div>
+    <div class="process-steps fade-in">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h4>Strategisk afklaring</h4>
+        <p>Vi definerer den transformation, dit brand st&aring;r for.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h4>Visuel retning</h4>
+        <p>Jeg udvikler et univers, der stemmer med jeres identitet og tone.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h4>Verdensopbygning</h4>
+        <p>Billeder og sekvenser skabes og animeres med AI-v&aelig;rkt&oslash;jer.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <h4>Komposition</h4>
+        <p>Speak, rytme og visuel bev&aelig;gelse samles til en helhed.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">05</div>
+        <h4>Levering</h4>
+        <p>En f&aelig;rdig 1-minuts film klar til web og sociale medier.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HVORFOR -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <p class="section-label">Hvorfor</p>
+      <h2 class="section-title">Hvad visuel storytelling g&oslash;r</h2>
+    </div>
+    <div class="why-grid fade-in">
+      <div class="why-card">
+        <div class="why-icon">&#9670;</div>
+        <h4>Dybde frem for st&oslash;j</h4>
+        <p>Skal din fort&aelig;lling m&aelig;rkes? Video g&oslash;r dit budskab mere strategisk for dine kunder.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9671;</div>
+        <h4>Stemning og f&oslash;lelse</h4>
+        <p>Sanselig kommunikation skaber genkendelighed og tillid hos healere og coaches.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9675;</div>
+        <h4>Visuelt univers</h4>
+        <p>Korte videoer har markant flere visninger &mdash; og bygger langsomt dit visuelle brand op.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9651;</div>
+        <h4>Strategisk filmformat</h4>
+        <p>Klar til at g&aring; fra id&eacute; til f&aelig;rdig film? Resultatet er et strategisk redskab for dit brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="container fade-in" style="position:relative; z-index:1;">
+    <p class="section-label">Lad os tale</p>
+    <h2 class="section-title">Klar til at skabe en fort&aelig;lling, der varer?</h2>
+    <p>Hvis du vil kommunikere med intention &mdash; lad os skabe noget, der m&aelig;rkes.</p>
+    <a href="mailto:sophia@nordisign.dk" class="btn-primary">Book en samtale</a>
+  </div>
+</section>

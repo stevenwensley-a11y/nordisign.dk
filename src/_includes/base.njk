@@ -1,0 +1,214 @@
+---
+---
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+  <meta property="og:title" content="{{ ogTitle or title }}">
+  <meta property="og:description" content="{{ ogDescription or description }}">
+  <meta property="og:type" content="website">
+  {% if ogUrl %}<meta property="og:url" content="{{ ogUrl }}">{% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Layer 1 + Layer 4 -->
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/skins/{{ site.skin.file }}">
+
+  <style>
+    /* Self-hosted fonts */
+    @font-face {
+      font-family: 'Tangerine';
+      src: url('/assets/fonts/TangerineRegular.woff2') format('woff2'),
+           url('/assets/fonts/TangerineRegular.woff') format('woff');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Tangerine';
+      src: url('/assets/fonts/TangerineItalic.woff2') format('woff2'),
+           url('/assets/fonts/TangerineItalic.woff') format('woff');
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Tomato Pasta';
+      src: url('/assets/fonts/TomatoPasta.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Tomato Pasta';
+      src: url('/assets/fonts/TomatoPasta-Bold.otf') format('opentype');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+
+    /* ===== Layer 2: Nav + Footer ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    nav.scrolled {
+      padding: 12px 40px;
+      background: rgba(255,255,255,0.96);
+    }
+    .nav-logo {
+      height: 38px;
+      opacity: 0.45;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    nav.scrolled .nav-logo { height: 22px; }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--text-dark); }
+    .nav-links a.active { color: var(--text-dark); }
+    .nav-cta {
+      background: var(--text-dark) !important;
+      color: var(--white) !important;
+      padding: 8px 24px !important;
+      font-size: 10px !important;
+      letter-spacing: 2.5px;
+      border: none !important;
+    }
+    .nav-cta:hover { opacity: 0.85 !important; }
+
+    .hamburger {
+      display: none; cursor: pointer; flex-direction: column; gap: 5px;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span { width: 24px; height: 1.5px; background: var(--text-dark); transition: 0.3s; }
+
+    /* Footer */
+    footer {
+      padding: 60px 40px 40px;
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-content {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .footer-logo { height: 20px; filter: brightness(0) invert(1); opacity: 0.4; margin-bottom: 12px; }
+    .footer-text {
+      font-family: var(--font-body); font-size: 12px;
+      color: rgba(255,255,255,0.5); line-height: 1.8; letter-spacing: 0.5px;
+    }
+    .footer-links { display: flex; gap: 40px; flex-wrap: wrap; }
+    .footer-links a {
+      font-family: var(--font-body); font-size: 11px; letter-spacing: 1px;
+      color: rgba(255,255,255,0.5); text-decoration: none; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; justify-content: space-between;
+      font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.35);
+    }
+    .badge a { color: rgba(255,255,255,0.35); text-decoration: none; }
+    .badge a:hover { color: rgba(255,255,255,0.6); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 10px 24px; }
+      .nav-logo { height: 30px; }
+      nav.scrolled .nav-logo { height: 18px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.active {
+        display: flex; flex-direction: column;
+        position: absolute; top: 60px; left: 0; right: 0;
+        background: rgba(255,255,255,0.98);
+        padding: 24px; gap: 20px;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+      .footer-content { flex-direction: column; gap: 32px; }
+      .footer-links { gap: 20px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+    }
+  </style>
+  {% if extraHead %}{{ extraHead | safe }}{% endif %}
+  {% if jsonLd %}
+  <script type="application/ld+json">{{ jsonLd | safe }}</script>
+  {% endif %}
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="/"><img src="{{ site.logo.black }}" alt="{{ site.logo.alt }}" class="nav-logo"></a>
+    <button type="button" class="hamburger" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('active')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      {% for link in site.nav.links %}
+      <a href="{{ link.url }}"{% if link.url == page.url %} class="active"{% endif %}>{{ link.label }}</a>
+      {% endfor %}
+      {% if site.nav.cta %}
+      <a href="{{ site.nav.cta.url }}" class="nav-cta"{% if site.nav.cta.url == page.url %} active{% endif %}>{{ site.nav.cta.label }}</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  {{ content | safe }}
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <img src="{{ site.logo.white }}" alt="{{ site.logo.alt }}" class="footer-logo">
+        <p class="footer-text">{{ site.footer.tagline }}<br>CVR {{ site.cvr }}</p>
+      </div>
+      <div class="footer-links">
+        {% for link in site.footer.links %}
+        <a href="{{ link.url }}">{{ link.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 {{ site.name }} &mdash; Sophia Obel</span>
+      <span class="badge">{{ site.footer.credit | safe }}</span>
+    </div>
+  </footer>
+
+  <!-- Scroll reveal + Nav shrink -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Fade-in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Nav scroll shrink
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+  });
+  </script>
+  {% if extraScripts %}{{ extraScripts | safe }}{% endif %}
+
+</body>
+</html>

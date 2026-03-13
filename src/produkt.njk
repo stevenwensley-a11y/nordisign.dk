@@ -1,0 +1,143 @@
+---
+layout: base.njk
+title: "Ydelse — The Strategic Story Spot — NORDI'SIGN"
+description: "1-minuts sanselig brandfilm for healere, coaches og formålsdrevne brands. 7.700 kr. + moms. Cinematisk, sanselig og strategisk."
+extraHead: |
+  <style>
+    .page-hero {
+      padding: 160px 40px 80px; text-align: center; background: var(--off-white);
+    }
+    .page-hero .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .page-hero h1 {
+      font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300; color: var(--text-dark); line-height: 1.2; margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-family: var(--font-serif); font-size: 17px; font-weight: 300;
+      color: var(--text-muted); line-height: 1.8; max-width: 640px; margin: 0 auto;
+    }
+    section { padding: 100px 40px; }
+    .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-serif); font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300; color: var(--text-dark); line-height: 1.2; margin-bottom: 24px;
+    }
+    .product { background: var(--white); }
+    .product-card {
+      background: var(--off-white); border: 1px solid var(--mid-gray);
+      padding: 60px; max-width: 800px; margin: 0 auto;
+    }
+    .product-card h3 { font-family: var(--font-serif); font-size: 2rem; font-weight: 400; color: var(--text-dark); margin-bottom: 8px; }
+    .product-subtitle { font-family: var(--font-body); font-size: 11px; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 32px; }
+    .product-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .product-col h4 { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 16px; }
+    .product-col ul { list-style: none; padding: 0; }
+    .product-col li { font-family: var(--font-serif); font-size: 15px; color: var(--text-body); padding: 6px 0; padding-left: 16px; position: relative; }
+    .product-col li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent); }
+    .product-price { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; color: var(--text-dark); padding-top: 32px; border-top: 1px solid var(--mid-gray); }
+    .product-price span { font-size: 14px; font-family: var(--font-body); color: var(--text-muted); }
+    .why { background: var(--off-white); }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 60px; }
+    .why-card { padding: 32px 24px; border: 1px solid var(--mid-gray); background: var(--white); transition: border-color 0.3s; }
+    .why-card:hover { border-color: var(--accent); }
+    .why-icon { font-size: 28px; margin-bottom: 20px; color: var(--accent); }
+    .why-card h4 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-dark); margin-bottom: 12px; font-weight: 400; }
+    .why-card p { font-family: var(--font-serif); font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .cta-inline { padding: 100px 40px; text-align: center; background: var(--white); }
+    .cta-inline p { font-family: var(--font-serif); font-size: 18px; font-style: italic; color: var(--text-muted); margin-bottom: 32px; }
+    .btn-primary {
+      background: var(--text-dark); color: var(--white); padding: 14px 40px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    @media (max-width: 1024px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      section { padding: 80px 24px; }
+      .page-hero { padding: 120px 24px 60px; }
+      .product-card { padding: 36px 24px; }
+      .product-columns { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .cta-inline { padding: 70px 24px; }
+    }
+  </style>
+---
+
+<div class="page-hero">
+  <p class="section-label">Ydelse</p>
+  <h1>The Strategic Story Spot</h1>
+  <p>En 60 sekunders sanselig brandfilm &mdash; skabt til healere, coaches og form&aring;lsdrevne brands, der &oslash;nsker at kommunikere essens frem for st&oslash;j.</p>
+</div>
+
+<section class="product">
+  <div class="container">
+    <div class="product-card fade-in">
+      <h3>1-Minuts Brandfilm</h3>
+      <p class="product-subtitle">Cinematisk &middot; Sanselig &middot; Strategisk</p>
+      <div class="product-columns">
+        <div class="product-col">
+          <h4>Du leverer</h4>
+          <ul>
+            <li>Speak eller manuskript</li>
+            <li>En kort briefing om budskab og intention</li>
+          </ul>
+        </div>
+        <div class="product-col">
+          <h4>Jeg skaber</h4>
+          <ul>
+            <li>Et visuelt univers</li>
+            <li>AI-genererede billeder og animation</li>
+            <li>Klipning, rytme og filmisk komposition</li>
+            <li>En f&aelig;rdig film klar til web og sociale medier</li>
+          </ul>
+        </div>
+      </div>
+      <div class="product-price">
+        7.700 kr. <span>+ moms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <p class="section-label">Hvorfor</p>
+      <h2 class="section-title">Hvad visuel storytelling g&oslash;r</h2>
+    </div>
+    <div class="why-grid fade-in">
+      <div class="why-card">
+        <div class="why-icon">&#9670;</div>
+        <h4>Dybde frem for st&oslash;j</h4>
+        <p>Skal din fort&aelig;lling m&aelig;rkes? Video g&oslash;r dit budskab mere strategisk for dine kunder.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9671;</div>
+        <h4>Stemning og f&oslash;lelse</h4>
+        <p>Sanselig kommunikation skaber genkendelighed og tillid hos healere og coaches.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9675;</div>
+        <h4>Visuelt univers</h4>
+        <p>Korte videoer har markant flere visninger &mdash; og bygger langsomt dit visuelle brand op.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9651;</div>
+        <h4>Strategisk filmformat</h4>
+        <p>Klar til at g&aring; fra id&eacute; til f&aelig;rdig film? Resultatet er et strategisk redskab for dit brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-inline fade-in">
+  <p>Klar til at skabe en fort&aelig;lling, der varer?</p>
+  <a href="mailto:sophia@nordisign.dk" class="btn-primary">Book en samtale</a>
+</div>

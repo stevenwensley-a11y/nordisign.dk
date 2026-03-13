@@ -1,0 +1,142 @@
+---
+layout: base.njk
+title: "Om Sophia Obel — NORDI'SIGN"
+description: "Sophia Obel er grafisk designer med 25+ års erfaring, nu visual storyteller. Hun skaber sanselige brandfilm for formålsdrevne brands."
+extraHead: |
+  <style>
+    .page-hero {
+      padding: 160px 40px 80px; text-align: center; background: var(--off-white);
+    }
+    .page-hero .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+    }
+    .page-hero h1 {
+      font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300; color: var(--text-dark); line-height: 1.2;
+    }
+    section { padding: 100px 40px; }
+    .section-label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 500;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-serif); font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300; color: var(--text-dark); line-height: 1.2; margin-bottom: 24px;
+    }
+    .section-text {
+      font-family: var(--font-serif); font-size: 17px; font-weight: 300;
+      color: var(--text-muted); line-height: 1.9; max-width: 640px;
+    }
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-image { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .about-image::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,0,0,0.06); pointer-events: none; }
+    .about-stats { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--mid-gray); }
+    .stat-number { font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .stat-label { font-family: var(--font-body); font-size: 11px; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+    .stories { background: var(--off-white); }
+    .stories-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .stories-quote {
+      font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300;
+      font-style: italic; color: var(--text-dark); line-height: 1.6;
+      margin-top: 40px; padding-left: 24px; border-left: 2px solid var(--accent);
+    }
+    .statement-section { padding: 100px 40px; text-align: center; background: var(--white); }
+    .statement-text {
+      font-family: var(--font-serif); font-size: clamp(2rem, 4.5vw, 3.8rem);
+      font-weight: 300; line-height: 1.4; color: var(--text-dark); max-width: 900px; margin: 0 auto;
+    }
+    .statement-text em { font-style: italic; color: var(--accent); }
+    .parallax-break {
+      height: 50vh; min-height: 350px;
+      background-attachment: fixed; background-size: cover; background-position: center;
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .parallax-break::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+    .parallax-quote { position: relative; z-index: 2; text-align: center; padding: 0 40px; max-width: 800px; }
+    .parallax-quote blockquote {
+      font-family: var(--font-serif); font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300; font-style: italic; color: #fff; line-height: 1.6; margin-bottom: 16px;
+    }
+    .parallax-quote cite {
+      font-family: var(--font-body); font-size: 11px; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6); font-style: normal;
+    }
+    .parallax-1 { background-image: url('/assets/images/bg-gold-texture.png'); }
+    .script-text { font-family: var(--font-script); font-weight: 400; }
+    @media (max-width: 768px) {
+      section { padding: 80px 24px; }
+      .page-hero { padding: 120px 24px 60px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image { max-height: 500px; }
+      .stories-content { grid-template-columns: 1fr; gap: 40px; }
+      .statement-section { padding: 70px 24px; }
+      .parallax-break { background-attachment: scroll; }
+    }
+  </style>
+---
+
+<div class="page-hero">
+  <p class="section-label">Om mig</p>
+  <h1>Sophia Obel</h1>
+</div>
+
+<section class="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image fade-in">
+        <img src="/assets/images/sophia-portrait.png" alt="Sophia Obel">
+      </div>
+      <div class="fade-in">
+        <p class="section-text">Jeg har arbejdet som selvst&aelig;ndig grafisk designer i mere end 25 &aring;r &mdash; prim&aelig;rt med kulturinstitutioner og livsstilsvirksomheder.</p>
+        <br>
+        <p class="section-text">Mit fundament er klassisk grafisk design: visuelle identiteter, sammenh&aelig;ngende designlinjer, &aelig;stetisk pr&aelig;cision og strategisk forankring.</p>
+        <br>
+        <p class="section-text">Hvor jeg f&oslash;r skabte visuelle identiteter, skaber jeg i dag <strong style="color:var(--text-dark);">visuelle fort&aelig;llinger</strong>. Jeg &oslash;nsker at v&aelig;re kendt som visual storyteller &mdash; en, der ikke kun designer udtryk, men formidler transformation.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-number">25+</div>
+            <div class="stat-label">&Aring;rs erfaring</div>
+          </div>
+          <div>
+            <div class="stat-number">&infin;</div>
+            <div class="stat-label">Visuelle verdener</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-break parallax-1">
+  <div class="parallax-quote">
+    <blockquote>&ldquo;Design er ikke kun det, man ser. Det er det, man m&aelig;rker.&rdquo;</blockquote>
+    <cite class="script-text" style="font-size: 16px; letter-spacing: 1px;">Sophia Obel</cite>
+  </div>
+</div>
+
+<section class="stories">
+  <div class="container">
+    <div class="stories-content">
+      <div class="fade-in">
+        <p class="section-label">Min tilgang</p>
+        <h2 class="section-title">Stories on Purpose</h2>
+        <p class="section-text">Vi lever i en tid med konstant bev&aelig;gelse og st&oslash;j. Det meste indhold er skabt til at fange opm&aelig;rksomhed hurtigt.</p>
+        <br>
+        <p class="section-text">Jeg skaber film, der <em>holder</em> den.</p>
+        <br>
+        <p class="section-text">Stories on Purpose handler om bevidste fort&aelig;llinger. Fort&aelig;llinger med retning. Fort&aelig;llinger, der udspringer af en kerne og kommunikerer den transformation, et brand muligg&oslash;r.</p>
+      </div>
+      <div class="fade-in">
+        <p class="section-text" style="margin-top: 60px;">AI er ikke budskabet i mit arbejde. Det er et v&aelig;rkt&oslash;j, der giver mig mulighed for at opbygge visuelle universer, symbolik og stemninger med pr&aelig;cision og dybde.</p>
+        <blockquote class="stories-quote">&ldquo;Det er strategisk storytelling &mdash; med sanselighed.&rdquo;</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="statement-section fade-in">
+  <p class="statement-text">Hvor andre skaber indhold, skaber jeg <em>tilstedev&aelig;relse</em>.</p>
+</div>
