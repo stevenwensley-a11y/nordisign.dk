@@ -29,9 +29,11 @@ function discoverPages(dir, prefix = '') {
   return pages;
 }
 
-// Get repo root (where HTML files live)
-const REPO_ROOT = path.resolve(__dirname, '..');
-const ALL_PAGES = discoverPages(REPO_ROOT);
+// Get 11ty build output directory (where HTML files live after build)
+const SITE_DIR = path.resolve(__dirname, '..', '_site');
+const ALL_PAGES = fs.existsSync(SITE_DIR)
+  ? discoverPages(SITE_DIR)
+  : discoverPages(path.resolve(__dirname, '..'));  // Fallback to repo root if no _site
 
 // Screenshot directory
 const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
