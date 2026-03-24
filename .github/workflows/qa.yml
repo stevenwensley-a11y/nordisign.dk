@@ -115,7 +115,7 @@ jobs:
 
       - uses: lycheeverse/lychee-action@v2
         with:
-          # Scan src/ and docs only — exclude node_modules, _site, test artifacts
+          # Scan site source only — exclude generated/vendored directories
           args: >-
             --verbose
             --no-progress
@@ -126,6 +126,7 @@ jobs:
             --exclude-path _site
             --exclude-path test-results
             --exclude-path tests
+            --exclude-path docs
             .
           fail: true
         env:
