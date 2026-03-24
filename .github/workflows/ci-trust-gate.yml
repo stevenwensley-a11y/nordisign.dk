@@ -1,0 +1,174 @@
+# CI Trust Gate — nordisign.dk
+#
+# Letvægt CI-gate tilpasset til pilot-udrulning fra bygmedai-11ty-modellen.
+# Exit-pakke: designet til at køre uden vedligeholdelse.
+#
+# Gates (i rækkefølge):
+#   1. Build check   — npm run build produkt ≥5 HTML filer
+#   2. Manifest      — manifest.json validerer mod minimalt schema
+#   3. Gitleaks      — BLOCKING secret scan (CLI, gratis, MIT-licens)
+#   4. Smoke check   — kritiske sider til stede i _site/
+#
+# FJERNET fra pilot (vs. bygmedai-11ty):
+#   - Semgrep (VENT-status, D019)
+#   - Lighthouse (overkill for exit-pakke)
+#   - Playwright smoke tests (eksisterer allerede i test.yml)
+#
+# Selvstændig — kræver ingen adgang til bygmedai-11ty for at køre.
+
+name: CI Trust Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  trust-gate:
+    name: Trust Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Fuld historik — Gitleaks scanner commits, ikke kun working tree
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Installer afhængigheder
+        run: npm ci || npm install
+
+      # ── Gate 1: Build ────────────────────────────────────────────────────
+
+      - name: Build site
+        run: npm run build
+
+      # ── Gate 2: Smoke check (build output) ───────────────────────────────
+
+      - name: Smoke check — build output
+        run: |
+          FILE_COUNT=$(find _site -name "*.html" | wc -l)
+          echo "Bygget $FILE_COUNT HTML-filer"
+          if [ "$FILE_COUNT" -lt 5 ]; then
+            echo "::error::Forventede ≥5 HTML-filer, fik $FILE_COUNT"
+            exit 1
+          fi
+
+          # Kritiske sider skal altid eksistere
+          MISSING=0
+          for page in index.html om/index.html kontakt/index.html portfolio/index.html; do
+            if [ ! -f "_site/$page" ]; then
+              echo "::error::MANGLER _site/$page"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then exit 1; fi
+
+          echo "✅ Build output OK ($FILE_COUNT HTML-filer)"
+
+      # ── Gate 3: Manifest validation ──────────────────────────────────────
+
+      - name: Validér manifest.json
+        run: |
+          node -e "
+            const fs = require('fs');
+
+            let manifest;
+            try {
+              manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+            } catch (e) {
+              console.error('::error::manifest.json kunne ikke parses:', e.message);
+              process.exit(1);
+            }
+
+            const required = ['site_id','domain','site_type','deployment_type','owner','risk_tier','critical_flows'];
+            const missing = required.filter(k => !(k in manifest));
+            if (missing.length > 0) {
+              console.error('::error::manifest.json mangler påkrævede felter:', missing.join(', '));
+              process.exit(1);
+            }
+
+            if (!Array.isArray(manifest.critical_flows) || manifest.critical_flows.length === 0) {
+              console.error('::error::manifest.json: critical_flows skal være ikke-tom array');
+              process.exit(1);
+            }
+
+            const validSiteTypes = ['static','app'];
+            if (!validSiteTypes.includes(manifest.site_type)) {
+              console.error('::error::manifest.json: ugyldig site_type:', manifest.site_type);
+              process.exit(1);
+            }
+
+            const validRiskTiers = ['low','medium','high','critical'];
+            if (!validRiskTiers.includes(manifest.risk_tier)) {
+              console.error('::error::manifest.json: ugyldig risk_tier:', manifest.risk_tier);
+              process.exit(1);
+            }
+
+            console.log('✅ manifest.json valideret:', manifest.domain, '|', manifest.site_type, '|', manifest.risk_tier, '|', manifest.critical_flows.length, 'critical flows');
+          "
+
+      # ── Gate 4: Gitleaks (BLOCKING) ──────────────────────────────────────
+
+      - name: Installer Gitleaks CLI
+        run: |
+          GITLEAKS_VERSION=8.21.2
+          curl -sSfL \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xzf - gitleaks
+          sudo install -m 755 gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Gitleaks — secret scan (BLOCKING)
+        # BLOCKING — ingen continue-on-error.
+        # Kræver .gitleaks.toml i repo root.
+        # Gitleaks exits 1 hvis findings fundet, 0 hvis rent.
+        run: |
+          gitleaks detect \
+            --source . \
+            --config .gitleaks.toml \
+            --report-format sarif \
+            --report-path gitleaks-report.sarif \
+            -v
+
+      - name: Upload Gitleaks SARIF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-sarif-${{ github.run_id }}
+          path: gitleaks-report.sarif
+          retention-days: 30
+
+      - name: Upload SARIF til GitHub Code Scanning
+        if: always() && hashFiles('gitleaks-report.sarif') != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: gitleaks-report.sarif
+          category: gitleaks
+
+      # ── Summary ──────────────────────────────────────────────────────────
+
+      - name: Skriv CI-summary
+        if: always()
+        run: |
+          echo "## CI Trust Gate — nordisign.dk" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Gate | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | Se log |" >> $GITHUB_STEP_SUMMARY
+          echo "| Manifest validation | Se log |" >> $GITHUB_STEP_SUMMARY
+          echo "| Gitleaks (BLOCKING) | Se log |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "_Pilot CI — tilpasset fra bygmedai-11ty CI Trust Gate (WP3.3)_" >> $GITHUB_STEP_SUMMARY

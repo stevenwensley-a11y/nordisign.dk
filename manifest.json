@@ -1,0 +1,48 @@
+{
+  "site_id": "nordisign-dk",
+  "domain": "nordisign.dk",
+  "site_type": "static",
+  "deployment_type": "cloudflare-pages",
+  "owner": "sophia-obel",
+  "risk_tier": "medium",
+  "legal_pages": [
+    "/privatlivspolitik/"
+  ],
+  "forms": [
+    {
+      "form_id": "kontakt",
+      "endpoint": "https://formspree.io/f/xpqjldbp",
+      "method": "POST",
+      "required_fields": ["name", "email", "message"],
+      "success_redirect": "/tak/"
+    }
+  ],
+  "expected_status_codes": {
+    "/": 200,
+    "/om/": 200,
+    "/kontakt/": 200,
+    "/portfolio/": 200,
+    "/proces/": 200,
+    "/produkt/": 200
+  },
+  "cta_targets": [
+    { "label": "Se portfolio", "url": "/portfolio/" },
+    { "label": "Kontakt", "url": "/kontakt/" }
+  ],
+  "critical_flows": [
+    {
+      "flow_id": "kontakt-formular",
+      "entry_url": "/kontakt/",
+      "trigger": "Bruger udfylder og indsender kontaktformularen",
+      "expected_outcome": "Redirect til /tak/ med HTTP 200",
+      "severity_if_broken": "critical"
+    },
+    {
+      "flow_id": "portfolio-tilgaengelighed",
+      "entry_url": "/portfolio/",
+      "trigger": "Bruger navigerer til portfolio og klikker på et billede",
+      "expected_outcome": "Billede vises i lightbox uden fejl",
+      "severity_if_broken": "medium"
+    }
+  ]
+}

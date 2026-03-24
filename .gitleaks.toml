@@ -1,0 +1,30 @@
+# Gitleaks konfiguration for nordisign.dk
+# Baseret på standard Gitleaks rules — CLI-version (gratis, MIT-licens)
+# Tilpasset fra bygmedai-11ty/.gitleaks.toml
+
+title = "nordisign.dk gitleaks config"
+
+[extend]
+# Bruger Gitleaks officielle default-rules som base
+useDefault = true
+
+# ─── Global Allowlist ────────────────────────────────────────────────────────
+
+[allowlist]
+description = "Kendte false positives for nordisign.dk"
+
+paths = [
+  # Build output — statisk HTML genereret af Eleventy
+  '''_site/''',
+
+  # Node.js dependencies — third-party kode
+  '''node_modules/''',
+
+  # Playwright test-snapshots
+  '''tests/screenshots/''',
+]
+
+stopwords = [
+  # Formspree form-IDs er offentlige routing-IDs (synlige i HTML source)
+  "formspree.io",
+]
