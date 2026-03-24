@@ -1,0 +1,18 @@
+qa:
+  base_url: https://nordisign.dk
+  threshold: 0.02
+
+  viewport:
+    width: 1280
+    height: 720
+  mobile_viewport:
+    width: 375
+    height: 812
+
+  pages:
+    - /
+    - /portfolio/
+    - /om/
+    - /kontakt/
+
+  flows: []

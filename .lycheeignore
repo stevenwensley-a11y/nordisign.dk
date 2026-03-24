@@ -1,0 +1,30 @@
+# Lychee ignore list — nordisign.dk
+# Format: one pattern per line (regex or exact URL)
+
+# Localhost / dev URLs
+http://localhost
+https://localhost
+http://127.0.0.1
+
+# Formspree endpoints (POST-only, GET returns 405)
+https://formspree.io
+
+# Fonts and external CDNs (rate-limited, flaky in CI)
+https://fonts.googleapis.com
+https://fonts.gstatic.com
+
+# Supabase (requires auth)
+https://*.supabase.co
+
+# GitHub Actions badges (often rate-limited)
+https://github.com/Bygmedai/.*/actions/workflows/.*\.svg
+
+# Social media (aggressive bot detection)
+https://www.linkedin.com
+https://twitter.com
+https://x.com
+https://www.instagram.com
+https://www.facebook.com
+
+# Calendly (requires auth)
+https://calendly.com
