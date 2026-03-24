@@ -115,7 +115,9 @@ jobs:
 
       - uses: lycheeverse/lychee-action@v2
         with:
-          # Scan site source only — exclude generated/vendored directories
+          # Scan src/ only (site source templates) — avoids node_modules, docs,
+          # _site, and vendored files that contain stale/external URLs.
+          # External URLs are excluded via .lycheeignore.
           args: >-
             --verbose
             --no-progress
@@ -123,11 +125,7 @@ jobs:
             --max-retries 2
             --timeout 20
             --exclude-path node_modules
-            --exclude-path _site
-            --exclude-path test-results
-            --exclude-path tests
-            --exclude-path docs
-            .
+            ./src
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
