@@ -22,16 +22,13 @@ outputs:
 runs:
   using: composite
   steps:
-    # ── 1. Parse .qa-config.yml → GITHUB_ENV ──────────────────────────────────
+    # ── 1. Parse .qa-config.yml → GITHUB_ENV (using Python shell) ─────────────
     - name: Parse .qa-config.yml
-      shell: bash
+      shell: python3 {0}
       run: |
-        python3 - <<'PYEOF'
-        import yaml, json, os, sys
+        import yaml, json, os, pathlib
 
-        with open('.qa-config.yml') as f:
-            cfg = yaml.safe_load(f)['qa']
-
+        cfg = yaml.safe_load(pathlib.Path('.qa-config.yml').read_text())['qa']
         base_url  = cfg['base_url']
         threshold = str(cfg.get('threshold', 0.01))
         pages     = json.dumps(cfg.get('pages', ['/']))
@@ -45,10 +42,8 @@ runs:
             ef.write(f'QA_VIEWPORT={viewport}\n')
             ef.write(f'QA_MOBILE_VIEWPORT={mobile_vp}\n')
 
-        page_count = len(cfg.get('pages', ['/'
-        ]))
+        page_count = len(cfg.get('pages', ['/']))
         print(f'Parsed config: base_url={base_url}, pages={page_count}, threshold={threshold}')
-        PYEOF
 
     # ── 2. Install Playwright (chromium only) ──────────────────────────────────
     - name: Install Playwright Chromium

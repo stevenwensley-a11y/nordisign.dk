@@ -2,7 +2,7 @@ name: 'Playwright E2E Flow Tests'
 description: >
   Runs E2E flow tests defined in .qa-config.yml under the flows: key.
   If flows is empty, the action succeeds immediately (nothing to test).
-  On failure, takes a screenshot of the broken state and uploads it.
+  On failure, uploads screenshots of the broken state as artifacts.
 
 outputs:
   flows-run:
@@ -15,26 +15,22 @@ outputs:
 runs:
   using: composite
   steps:
-    # ── 1. Parse .qa-config.yml → GITHUB_ENV ──────────────────────────────────
+    # ── 1. Parse .qa-config.yml → GITHUB_ENV (using Python shell) ─────────────
     - name: Parse .qa-config.yml
-      shell: bash
+      shell: python3 {0}
       run: |
-        python3 - <<'PYEOF'
-        import yaml, json, os
+        import yaml, json, os, pathlib
 
-        with open('.qa-config.yml') as f:
-            cfg = yaml.safe_load(f)['qa']
-
+        cfg = yaml.safe_load(pathlib.Path('.qa-config.yml').read_text())['qa']
         base_url = cfg['base_url']
         flows    = json.dumps(cfg.get('flows', []))
+        flow_count = len(cfg.get('flows', []))
 
         with open(os.environ['GITHUB_ENV'], 'a') as ef:
             ef.write(f'QA_BASE_URL={base_url}\n')
             ef.write(f'QA_FLOWS={flows}\n')
 
-        flow_count = len(cfg.get('flows', []))
         print(f'Parsed config: base_url={base_url}, flows={flow_count}')
-        PYEOF
 
     # ── 2. Skip if no flows defined ───────────────────────────────────────────
     - name: Check if flows are defined
@@ -74,17 +70,10 @@ runs:
         EXIT_CODE=$?
         set -e
 
+        # Count failures from results JSON (best-effort)
         FAILED=0
         if [ $EXIT_CODE -ne 0 ]; then
-          FAILED=$(python3 -c "
-import json, pathlib
-f = pathlib.Path('test-results/qa-results.json')
-if f.exists():
-    d = json.loads(f.read_text())
-    print(sum(1 for s in d.get('suites', []) for t in s.get('specs', []) if t.get('ok') is False))
-else:
-    print(1)
-" 2>/dev/null || echo 1)
+          FAILED=$(python3 -c "import json,pathlib; f=pathlib.Path('test-results/qa-results.json'); d=json.loads(f.read_text()) if f.exists() else {}; print(sum(1 for s in d.get('suites',[]) for t in s.get('specs',[]) if not t.get('ok',True)))" 2>/dev/null || echo 1)
         fi
 
         echo "flows-run=$FLOW_COUNT"    >> $GITHUB_OUTPUT
